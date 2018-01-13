@@ -34,7 +34,11 @@
 (tool-bar-mode -1) ;; close toolbar
 (setq inhibit-startup-message t) ;; hide the startup message
 
-(setq auto-save-default nil) ;; 默认值是t,这个就就是前缀后缀#
+;; save auto-save file to /tmp
+(setq backup-directory-alist
+          `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+          `((".*" ,temporary-file-directory t)))
 
 ;; These two lines are just examples
 (setq powerline-arrow-shape 'curve)
