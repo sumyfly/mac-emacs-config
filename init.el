@@ -34,11 +34,14 @@
 (tool-bar-mode -1) ;; close toolbar
 (setq inhibit-startup-message t) ;; hide the startup message
 
-;; save auto-save file to /tmp
+;; Save all tempfiles in $TMPDIR/emacs$UID/                                                        
+(defconst emacs-tmp-dir (expand-file-name (format "emacs%d" (user-uid)) temporary-file-directory))
 (setq backup-directory-alist
-          `((".*" . ,temporary-file-directory)))
+        `((".*" . ,emacs-tmp-dir)))
 (setq auto-save-file-name-transforms
-          `((".*" ,temporary-file-directory t)))
+        `((".*" ,emacs-tmp-dir t)))
+(setq auto-save-list-file-prefix
+	  emacs-tmp-dir)
 
 ;; These two lines are just examples
 (setq powerline-arrow-shape 'curve)
