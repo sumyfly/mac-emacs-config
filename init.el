@@ -15,7 +15,7 @@
 (defvar myPackages
   '(better-defaults
     elpy ;; add the elpy package for python
-    flycheck
+    flycheck ;; add flycheck to lint python
     py-autopep8 ;; add the autopep8 for python format
     magit ;; for git
     ein ;; add the ein package (Emacs ipython notebook) jupyter notebook
@@ -46,12 +46,12 @@
 ;; These two lines are just examples
 (setq powerline-arrow-shape 'curve)
 (setq powerline-default-separator-dir '(right . left))
-(setq sml/no-confirm-load-theme t)
+(setq sml/no-confirm-load-theme t) ;; derpess load sml theme warning
 ;; These two lines you really need.
 (setq sml/theme 'powerline)
 (sml/setup)
 
-;; theme
+;; load user's theme
 (load-theme 'sanityinc-tomorrow-eighties t)
 
 (global-linum-mode t) ;; enable line numbers globally
@@ -70,9 +70,11 @@
 ;;(setq python-shell-interpreter "jupyter"
 ;;      python-shell-interpreter-args "console --simple-prompt")
 
+;; when save python file, use py-autopep8 to format
 (require 'py-autopep8)
 (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 
+;; use flycheck to lint python
 (when (require 'flycheck nil t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
   (add-hook 'elpy-mode-hook 'flycheck-mode))
