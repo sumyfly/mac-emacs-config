@@ -71,8 +71,8 @@
 ;;      python-shell-interpreter-args "console --simple-prompt")
 
 ;; when save python file, use py-autopep8 to format
-(require 'py-autopep8)
-(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+;;(require 'py-autopep8)
+;;(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 
 ;; use flycheck to lint python
 (when (require 'flycheck nil t)
@@ -82,13 +82,15 @@
 ;; elpy config end
 
 ;; python debug begin
-;; insert pdb breakpoints
+
+;; insert pdb breakpoints, you can use ipdb,
+;; but now my virenv can not use ipdb with some problems
 (defun python-add-breakpoint ()
   "Add a break point"
   (interactive)
   (newline-and-indent)
-  (insert "import ipdb; ipdb.set_trace()")
-  (highlight-lines-matching-regexp "^[ ]*import ipdb; ipdb.set_trace()"))
+  (insert "import pdb; pdb.set_trace()")
+  (highlight-lines-matching-regexp "^[ ]*import pdb; pdb.set_trace()"))
 
 (define-key python-mode-map (kbd "C-c b") 'python-add-breakpoint)
 
@@ -103,6 +105,15 @@
 ;; when you pdb, can use C-c i go to ipython, when you want to exit ipython
 ;; use Ctrl+D
 (global-set-key (kbd "C-c i") 'python-interactive)
+
+;; clean breakpoints
+(defun pdb-cleanup ()
+  "Clean pdb breakpoints"
+  (interactive)
+    (save-excursion
+      (replace-regexp ".*pdb.set_trace().*\n" "" nil (point-min) (point-max))
+      ;; (save-buffer)
+      ))
 
 ;; end python debug
 
