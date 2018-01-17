@@ -100,7 +100,8 @@
     (insert "!import code; code.interact(local=vars())")
     (move-end-of-line 1)
     (comint-send-input)))
-
+;; when you pdb, can use C-c i go to ipython, when you want to exit ipython
+;; use Ctrl+D
 (global-set-key (kbd "C-c i") 'python-interactive)
 
 ;; end python debug
