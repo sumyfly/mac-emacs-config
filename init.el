@@ -48,7 +48,7 @@
 (setq powerline-default-separator-dir '(right . left))
 (setq sml/no-confirm-load-theme t) ;; derpess load sml theme warning
 ;; These two lines you really need.
-(setq sml/theme 'powerline)
+(setq sml/theme 'light-powerline)
 (sml/setup)
 
 ;; load user's theme
@@ -78,6 +78,31 @@
 (when (require 'flycheck nil t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
   (add-hook 'elpy-mode-hook 'flycheck-mode))
+
 ;; elpy config end
+
+;; python debug begin
+;; insert pdb breakpoints
+(defun python-add-breakpoint ()
+  "Add a break point"
+  (interactive)
+  (newline-and-indent)
+  (insert "import ipdb; ipdb.set_trace()")
+  (highlight-lines-matching-regexp "^[ ]*import ipdb; ipdb.set_trace()"))
+
+(define-key python-mode-map (kbd "C-c b") 'python-add-breakpoint)
+
+;; in pdb, goto python interactive
+(defun python-interactive ()
+  "Enter the interactive Python environment"
+  (interactive)
+  (progn
+    (insert "!import code; code.interact(local=vars())")
+    (move-end-of-line 1)
+    (comint-send-input)))
+
+(global-set-key (kbd "C-c i") 'python-interactive)
+
+;; end python debug
 
 ;; init.el ends here
