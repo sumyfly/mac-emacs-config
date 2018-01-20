@@ -33,6 +33,7 @@
 
 (tool-bar-mode -1) ;; close toolbar
 (setq inhibit-startup-message t) ;; hide the startup message
+(fset 'yes-or-no-p  'y-or-n-p)
 
 ;; Save all tempfiles in $TMPDIR/emacs$UID/                                                        
 (defconst emacs-tmp-dir (expand-file-name (format "emacs%d" (user-uid)) temporary-file-directory))
