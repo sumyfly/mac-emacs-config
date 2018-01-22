@@ -33,7 +33,7 @@
 
 (tool-bar-mode -1) ;; close toolbar
 (setq inhibit-startup-message t) ;; hide the startup message
-(fset 'yes-or-no-p  'y-or-n-p)
+(fset 'yes-or-no-p  'y-or-n-p) ;; fast input key y or n
 
 ;; Save all tempfiles in $TMPDIR/emacs$UID/                                                        
 (defconst emacs-tmp-dir (expand-file-name (format "emacs%d" (user-uid)) temporary-file-directory))
@@ -74,6 +74,9 @@
 ;; when save python file, use py-autopep8 to format
 ;;(require 'py-autopep8)
 ;;(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+
+;; set python format hot key
+(define-key python-mode-map (kbd "C-c f") 'py-autopep8)
 
 ;; use flycheck to lint python
 (when (require 'flycheck nil t)
