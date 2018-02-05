@@ -116,6 +116,8 @@
   (interactive)
     (save-excursion
       (replace-regexp ".*pdb.set_trace().*\n" "" nil (point-min) (point-max))
+      ;; because py-autopep8 will make the breakpoints become two lines, so add this to remove import .*pdb
+      (replace-regexp "import .*pdb.*\n" "" nil (point-min) (point-max))
       ;; (save-buffer)
       ))
 
